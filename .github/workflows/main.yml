@@ -158,9 +158,15 @@ jobs:
     strategy:
       matrix:
         macos-version: ['macos-12', 'macos-14']
-        python-version: ['3.8', '3.11', '3.12']
+        python-version: ['3.11', '3.12']
+        include:
+          - macos-version: 'macos-12'
+            python-version: '3.8'
       fail-fast: false
     steps:
+    - name: Set Include folders
+      run:
+        echo "BOOST_INC_DIR=$(brew --prefix)/include" >> $GITHUB_ENV
     - uses: actions/checkout@v4
       name: Checkout the repository
       with:
@@ -177,7 +183,7 @@ jobs:
       run: |
         python -m pip install scons ruamel.yaml numpy cython pandas pytest pytest-github-actions-annotate-failures pint graphviz
     - name: Build Cantera
-      run: scons build env_vars=all -j3 debug=n --debug=time
+      run: scons build env_vars=all -j3 debug=n --debug=time boost_inc_dir=${BOOST_INC_DIR}
     - name: Test Cantera
       run:
         scons test show_long_tests=yes verbose_tests=yes --debug=time
