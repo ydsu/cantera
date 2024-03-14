@@ -169,7 +169,7 @@ jobs:
         submodules: recursive
     - name: Write dependencies to a file for caching
       run: |
-        echo "scons ruamel.yaml numpy cython pandas pytest pytest-github-actions-annotate-failures pint graphviz" > requirements.txt
+        echo "scons ruamel.yaml numpy cython pandas pytest pytest-github-actions-annotate-failures pint graphviz" | tr " " "\n" > requirements.txt
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
