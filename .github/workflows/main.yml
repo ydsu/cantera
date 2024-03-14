@@ -180,7 +180,7 @@ jobs:
       run: |
         $PYTHON_CMD -m pip install ruamel.yaml numpy cython pandas pytest pytest-github-actions-annotate-failures pint graphviz
     - name: Build Cantera
-      run: scons build env_vars=all -j3 python_cmd=$PYTHON_CMD debug=n --debug=time
+      run: $PYTHON_CMD -m scons build env_vars=all -j3 python_cmd=$PYTHON_CMD debug=n --debug=time
     - name: Test Cantera
       run:
         scons test show_long_tests=yes verbose_tests=yes --debug=time
