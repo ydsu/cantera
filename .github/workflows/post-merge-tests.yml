@@ -189,8 +189,9 @@ jobs:
       name: Checkout the repository
       with:
         submodules: recursive
+    # NumPy is installed here for the Python custom rate tests
     - name: Install Brew dependencies
-      run: brew install --display-times boost libomp hdf5 python python-setuptools scons
+      run: brew install --display-times boost libomp hdf5 python python-setuptools scons numpy
     - name: Set Include folder
       run: |
         echo "BOOST_INC_DIR=$(brew --prefix)/include" >> $GITHUB_ENV
