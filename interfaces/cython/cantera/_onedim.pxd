@@ -93,6 +93,10 @@ cdef extern from "cantera/oneD/StFlow.h":
         void setFreeFlow()
         void setAxisymmetricFlow()
         string flowType()
+        # heat loss
+        void setHeatLossParameter(double)
+        double getHeatLossParameter()
+
 
 
 cdef extern from "cantera/oneD/Sim1D.h":

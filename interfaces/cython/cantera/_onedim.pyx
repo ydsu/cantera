@@ -710,6 +710,15 @@ cdef class _FlowBase(Domain1D):
                 data[j] = self.flow.radiativeHeatLoss(j)
             return data
 
+    # heat loss test
+    property heat_loss_coef:
+        """ set heat loss coefficient. """
+        def __get__(self):
+            return self.flow.getHeatLossParameter()
+        def __set__(self, heat_loss_coefficient):
+            self.flow.setHeatLossParameter(<double>heat_loss_coefficient)
+
+
     def set_free_flow(self):
         """
         Set flow configuration for freely-propagating flames, using an internal

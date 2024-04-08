@@ -346,6 +346,15 @@ public:
         return m_kExcessRight;
     }
 
+    // Heat loss parameters.
+    void setHeatLossParameter(double heatLoss) {
+        f_hl = heatLoss;
+    }
+
+    double getHeatLossParameter() const {
+        return f_hl;
+    }
+
 protected:
     AnyMap getMeta() const override;
     void setMeta(const AnyMap& state) override;
@@ -557,6 +566,10 @@ protected:
     //! Update the transport properties at grid points in the range from `j0`
     //! to `j1`, based on solution `x`.
     virtual void updateTransport(double* x, size_t j0, size_t j1);
+
+
+    // Parameters for heat loss
+    double f_hl = 0.0;
 
 public:
     //! Location of the point where temperature is fixed

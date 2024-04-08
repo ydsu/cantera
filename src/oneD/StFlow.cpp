@@ -463,6 +463,14 @@ void StFlow::evalResidual(double* x, double* rsd, int* diag,
         }
     }
 
+    // Debug
+    // setHeatLossParameter(0.4);
+    // double f_hl_local = getHeatLossParameter();
+    // printf("heat loss parameter: %f\n", f_hl_local);
+    // printf("heat loss parameter in Class: %f\n", f_hl);
+
+
+
     for (size_t j = jmin; j <= jmax; j++) {
         //----------------------------------------------
         //         left boundary
@@ -560,9 +568,17 @@ void StFlow::evalResidual(double* x, double* rsd, int* diag,
                 double sum = 0.0;
 
                 grad_hk(x, j);
+                // Original treatment
+                // for (size_t k = 0; k < m_nsp; k++) {
+                //     double flxk = 0.5*(m_flux(k,j-1) + m_flux(k,j));
+                //     sum += wdot(k,j)*m_hk(k,j);
+                //     sum += flxk * m_dhk_dz(k,j) / m_wt[k];
+                // }
+
+                // Current treatment with heat loss effects.
                 for (size_t k = 0; k < m_nsp; k++) {
                     double flxk = 0.5*(m_flux(k,j-1) + m_flux(k,j));
-                    sum += wdot(k,j)*m_hk(k,j);
+                    sum += wdot(k,j)*m_hk(k,j) * (1.0 - f_hl);
                     sum += flxk * m_dhk_dz(k,j) / m_wt[k];
                 }
 
